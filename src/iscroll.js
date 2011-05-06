@@ -838,6 +838,44 @@ iScroll.prototype = {
 		}
 	},
 	
+	pause: function () {
+		var that = this;
+		
+		// Remove the event listeners
+		that._unbind('webkitTransitionEnd');
+		that._unbind(RESIZE_EV);
+		that._unbind(START_EV);
+		that._unbind(MOVE_EV);
+		that._unbind(END_EV);
+		that._unbind(CANCEL_EV);
+		
+		if (that.options.zoom) {
+			that._unbind('gesturestart');
+			that._unbind('gesturechange');
+			that._unbind('gestureend');
+			that._unbind('gesturecancel');
+		}
+	},
+	
+	play: function () {
+		var that = this;
+		
+		// Reinstate the event listeners
+		that._bind('webkitTransitionEnd');
+		that._bind(RESIZE_EV);
+		that._bind(START_EV);
+		that._bind(MOVE_EV);
+		that._bind(END_EV);
+		that._bind(CANCEL_EV);
+		
+		if (that.options.zoom) {
+			that._bind('gesturestart');
+			that._bind('gesturechange');
+			that._bind('gestureend');
+			that._bind('gesturecancel');
+		}
+	},
+	
 	refresh: function () {
 		var that = this,
 			pos = 0, page = 0,
